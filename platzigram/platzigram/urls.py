@@ -15,14 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-"""libreria para la respuesta http"""
-from django.http import HttpResponse 
 
-""" Funcion de prueba para la respuesta http"""
-def hello_world (request):
-    return HttpResponse('Hello World')
+from platzigram import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('hello-world', hello_world) """Url conectada a la respuesta http definida en la funcion de arriba"""
+    path('hello-world', views.hello_world),
+    path('hi/', views.hi) 
 ]
