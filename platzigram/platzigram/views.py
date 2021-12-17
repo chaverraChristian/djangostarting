@@ -8,10 +8,17 @@ import json
 """ Funcion de prueba para la respuesta http"""
 def hello_world (request):
     now = datetime.now().strftime('%b %dth, %Y - %H:%M hrs')
-    return HttpResponse('Hello World! Current server time is {now}'.format(now=now))
+    return HttpResponse(
+        'Hello World! Current server time is {now}'.format(now=now))
 
 def hi (request):
-    numbers = request.GET['numbers']
-    jsonnumbers = json.JSONEncoder().encode({"numbers":[str(numbers)]})
-    """print(jsonnumbers)"""
-    return HttpResponse(jsonnumbers)
+    numbers = [int(i) for i in request.GET['numbers'].split(',')]
+    sorted_ints = sorted(numbers)
+    data = {
+        'status' : 'ok',
+        'numbers' : sorted_ints,
+        'message' : 'Integers sorted succesfully'
+    }
+    return HttpResponse(
+        json.dumps(data, indent=4), 
+        content_type = 'application/json')
