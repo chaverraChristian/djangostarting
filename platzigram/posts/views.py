@@ -1,5 +1,5 @@
 """posts views"""
-from django.http import HttpResponse
+from django.shortcuts import render
 from datetime import datetime
 
 
@@ -26,11 +26,4 @@ posts = [
 
 
 def list_posts(request):
-    content = []
-    for post in posts:
-        content.append("""
-            <p><strong>{name}</strong></p>
-            <p><strong>{user} - <i>{timestamp}</i></strong></p>
-            <figure><img src="{picture}"/></figure>
-        """.format(**post))
-    return HttpResponse('<br>'.join(content))
+    return render(request, 'feed.html', {'posts': posts})
